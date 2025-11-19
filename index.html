@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="color-scheme" content="light">
     <meta name="supported-color-schemes" content="light">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#2563eb">
     <title>Arriendo de Autos para Uber y Empresas - Los Andes y San Felipe</title>
     <style>
         :root {
@@ -15,6 +16,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Mejorar el tap en móviles */
+            -webkit-tap-highlight-color: rgba(37, 99, 235, 0.1);
         }
 
         body {
@@ -22,6 +25,8 @@
             background-color: #f8fafc !important;
             color: #0f172a !important;
             overflow-x: hidden;
+            /* Mejorar scroll en iOS */
+            -webkit-overflow-scrolling: touch;
         }
 
         .container {
@@ -145,6 +150,7 @@
             line-height: 1.6;
         }
 
+        /* Mejorar botones con efectos táctiles para móvil */
         .cta-button {
             display: inline-block;
             padding: 16px 40px;
@@ -156,11 +162,39 @@
             font-size: 18px;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+            position: relative;
+            overflow: hidden;
+            /* Mejorar interacción táctil */
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button.tap-effect::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(37, 99, 235, 0.35);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         .hero-image {
@@ -269,6 +303,8 @@
             transition: all 0.3s ease;
             opacity: 0;
             transform: translateY(40px);
+            /* Mejorar rendimiento en móvil */
+            will-change: transform, opacity;
         }
 
         .feature-card.visible {
@@ -282,6 +318,11 @@
             box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
         }
 
+        /* Efecto táctil para cards en móvil */
+        .feature-card:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+
         .feature-icon {
             width: 56px;
             height: 56px;
@@ -293,6 +334,17 @@
             margin-bottom: 18px;
             font-size: 26px;
             color: #f9fafb;
+            /* Animación de pulso sutil */
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .feature-card h3 {
@@ -331,6 +383,19 @@
             background-clip: text;
         }
 
+        /* Galería con soporte para swipe en móvil */
+        .gallery-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .gallery-container::-webkit-scrollbar {
+            display: none;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -349,6 +414,8 @@
             opacity: 0;
             transform: scale(0.96);
             background: #0f172a;
+            /* Mejorar rendimiento */
+            will-change: transform, opacity;
         }
 
         .gallery-item.visible {
@@ -361,15 +428,41 @@
             box-shadow: 0 20px 45px rgba(15, 23, 42, 0.4);
         }
 
+        /* Efecto táctil en galería */
+        .gallery-item:active {
+            transform: scale(0.97);
+        }
+
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+            /* Lazy loading nativo */
+            loading: lazy;
         }
 
         .gallery-item:hover img {
             transform: scale(1.06);
+        }
+
+        /* Indicador de scroll para galería en móvil */
+        .scroll-indicator {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(10px);
+            }
         }
 
         /* Footer / Contacto */
@@ -424,11 +517,38 @@
             font-size: 18px;
             box-shadow: 0 10px 30px rgba(22, 163, 74, 0.5);
             transition: all 0.3s ease;
+            /* Mejorar interacción táctil */
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .whatsapp-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .whatsapp-button.tap-effect::before {
+            width: 300px;
+            height: 300px;
         }
 
         .whatsapp-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 18px 45px rgba(22, 163, 74, 0.7);
+        }
+
+        .whatsapp-button:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .whatsapp-btn {
@@ -441,6 +561,17 @@
             width: 28px;
             height: 28px;
             object-fit: contain;
+            /* Animación de rebote para el icono */
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         /* Responsive */
@@ -458,8 +589,10 @@
                 font-size: 18px;
             }
 
+            /* Aumentando el padding superior para dar más espacio a las floating cards */
             .hero-image {
-                padding: 20px;
+                padding: 80px 50px 40px;
+                min-height: 450px;
             }
 
             .features-grid {
@@ -470,12 +603,62 @@
                 display: none;
             }
 
+            /* Reposicionando las floating cards para que no tapen el auto */
             .floating-card {
-                display: none;
+                padding: 6px 8px;
+                border-radius: 12px;
+            }
+
+            .floating-card h3 {
+                font-size: 8px;
+            }
+
+            .floating-card p {
+                font-size: 11px;
+            }
+
+            .card-1 {
+                top: 15%;
+                left: -10%;
+            }
+
+            .card-2 {
+                bottom: -5%;
+                left: 5%;
+            }
+
+            .card-3 {
+                top: 40%;
+                right: -20%;
             }
 
             .gallery h2 {
                 font-size: 32px;
+            }
+
+            /* Mostrar indicador de scroll en móvil */
+            .scroll-indicator {
+                display: block;
+            }
+
+            /* Optimizar galería para swipe horizontal en móvil */
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                scroll-snap-type: x mandatory;
+                gap: 20px;
+            }
+
+            .gallery-item {
+                scroll-snap-align: center;
+            }
+
+            /* Botones más grandes para dedos en móvil */
+            .cta-button, .whatsapp-button {
+                padding: 18px 36px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 100%;
+                text-align: center;
             }
         }
 
@@ -489,11 +672,52 @@
             z-index: 9999;
             transition: width 0.1s ease;
         }
+
+        /* Toast de notificación para feedback visual */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.95);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(12px);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Skeleton loader para imágenes */
+        .skeleton {
+            background: linear-gradient(90deg, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Toast para notificaciones -->
+    <div class="toast" id="toast"></div>
 
     <!-- Header -->
     <header id="header">
@@ -523,16 +747,15 @@
                 </p>
                 <!-- Boton de contacto WhatsApp -->
                 <a href="https://wa.me/56958144517?text=Hola%2C%20vi%20tu%20p%C3%A1gina%20de%20arriendo%20de%20autos%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n" 
-                class="cta-button whatsapp-btn" target="_blank" rel="noopener noreferrer">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png" alt="WhatsApp" class="whatsapp-icon">
+                class="cta-button whatsapp-btn tap-target" target="_blank" rel="noopener noreferrer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/512px-WhatsApp.svg.png" alt="WhatsApp" class="whatsapp-icon" loading="lazy">
                     Escríbeme por WhatsApp
                 </a>
 
             </div>
             <div class="hero-image">
                 <div class="car-container" id="carContainer">
-                    <!-- Restauradas las rutas originales de las imágenes -->
-                    <img src="images/car1.png" alt="Renault Symbol para Uber y empresas">
+                    <img src="images/car1.png" alt="Renault Symbol para Uber y empresas" loading="eager">
                     
                     <div class="floating-card card-1">
                         <h3>Arriendo semanal</h3>
@@ -622,27 +845,29 @@
     <!-- Gallery Section -->
     <section class="gallery" id="galeria">
         <h2>Conoce tu próximo auto de trabajo</h2>
-        <div class="gallery-grid">
-            <!-- Restauradas las rutas originales de las imágenes de la galería -->
-            <div class="gallery-item">
-                <img src="images/car2.png" alt="Renault Symbol vista frontal">
-            </div>
-            <div class="gallery-item">
-                <img src="images/car3.png" alt="Renault Symbol vista lateral">
-            </div>
-            <div class="gallery-item">
-                <img src="images/car1.png" alt="Interior Renault Symbol">
-            </div>
-            <div class="gallery-item">
-                <img src="images/car5.webp" alt="Volante y tablero Renault Symbol">
-            </div>
-            <div class="gallery-item">
-                <img src="images/car6.jpg" alt="Motor Renault Symbol">
-            </div>
-            <div class="gallery-item">
-                <img src="images/car7.JPG" alt="Parte trasera Renault Symbol">
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/car2.png" alt="Renault Symbol vista frontal" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/car3.png" alt="Renault Symbol vista lateral" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/car1.png" alt="Interior Renault Symbol" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/car5.webp" alt="Volante y tablero Renault Symbol" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/car6.jpg" alt="Motor Renault Symbol" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/car7.JPG" alt="Parte trasera Renault Symbol" loading="lazy">
+                </div>
             </div>
         </div>
+        <div class="scroll-indicator">👉 Desliza para ver más fotos</div>
     </section>
 
     <!-- Footer / Contacto -->
@@ -657,7 +882,7 @@
 
             <!-- Boton de contacto WhatsApp -->
             <a href="https://wa.me/56958144517?text=Hola%2C%20vi%20tu%20p%C3%A1gina%20de%20arriendo%20de%20autos%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n" 
-               class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+               class="whatsapp-button tap-target" target="_blank" rel="noopener noreferrer">
                 Contactar por WhatsApp
             </a>
 
@@ -668,6 +893,32 @@
     </footer>
 
     <script>
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        document.querySelectorAll('.tap-target').forEach(button => {
+            button.addEventListener('touchstart', function(e) {
+                this.classList.add('tap-effect');
+                setTimeout(() => {
+                    this.classList.remove('tap-effect');
+                }, 600);
+            });
+
+            button.addEventListener('click', function(e) {
+                if (!e.isTrusted) return; // Prevenir clicks programáticos
+                this.classList.add('tap-effect');
+                setTimeout(() => {
+                    this.classList.remove('tap-effect');
+                }, 600);
+            });
+        });
+
         // Scroll Progress Bar
         window.addEventListener('scroll', () => {
             const scrollProgress = document.getElementById('scrollProgress');
@@ -687,10 +938,9 @@
             }
         });
 
-        // Intersection Observer for fade-in animations
         const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -698,7 +948,7 @@
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add('visible');
-                    }, index * 100);
+                    }, index * 80);
                 }
             });
         }, observerOptions);
@@ -715,10 +965,11 @@
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            if (this.getAttribute('href') === '#') return;
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -728,19 +979,119 @@
             });
         });
 
-        // Add mouse move effect to hero (tarjetas flotantes)
-        document.addEventListener('mousemove', (e) => {
-            const cards = document.querySelectorAll('.floating-card');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.floating-card');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                cards.forEach((card, index) => {
+                    const speed = (index + 1) * 10;
+                    const moveX = (x - 0.5) * speed;
+                    const moveY = (y - 0.5) * speed;
+                    card.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+            });
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const galleryContainer = document.querySelector('.gallery-grid');
+
+        if (galleryContainer) {
+            galleryContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            galleryContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const swipeDistance = touchStartX - touchEndX;
+            if (Math.abs(swipeDistance) > 50) {
+                // Feedback visual sutil al hacer swipe
+                const indicator = document.querySelector('.scroll-indicator');
+                if (indicator && indicator.style.display !== 'none') {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.style.display = 'none';
+                    }, 300);
+                }
+            }
+        }
+
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        img.classList.remove('skeleton');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('focus', function() {
+                if (window.innerWidth < 768) {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0');
+                }
+            });
             
-            cards.forEach((card, index) => {
-                const speed = (index + 1) * 10;
-                const moveX = (x - 0.5) * speed;
-                const moveY = (y - 0.5) * speed;
-                card.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            element.addEventListener('blur', function() {
+                if (window.innerWidth < 768) {
+                    const viewport = document.querySelector('meta[name="viewport"]');
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0');
+                }
             });
         });
+
+        document.querySelectorAll('.whatsapp-button, .cta-button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Vibración táctil si está disponible
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+            });
+        });
+
+        const footer = document.querySelector('footer');
+        if (footer) {
+            const footerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Pequeña celebración visual cuando llegan al footer
+                        const whatsappBtn = footer.querySelector('.whatsapp-button');
+                        if (whatsappBtn) {
+                            whatsappBtn.style.animation = 'pulse 0.5s ease-in-out 2';
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            footerObserver.observe(footer);
+        }
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animation = 'none';
+                el.style.transition = 'none';
+            });
+        }
     </script>
 </body>
 </html>
